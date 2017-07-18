@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>AR Demo 1</title>
+        <meta charset="utf-8">
+        <style>
+        body{
+            margin: 0;
+            overflow: hidden;
+            font-family: monospace;
+        }
+        </style>
+    </head>
+    <body>
+        <script src='../assets/scripts/libs/three.min.js'></script>
+        <script src='../assets/scripts/libs/ar.js'></script>
+        <script>
+        var renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
+        renderer.setClear(new THREE.Color('lightgrey'), 0);
+        renderer.setSize(640, 480);
+        renderer.domElement.style.position = 'absolute';
+        renderer.domElement.style.top = '0px';
+        renderer.domElement.style.left = '0px';
+        document.body.appendChild(renderer.domElement);
+
+        // 
+        var onRenderFcts = [];
+
+        // 初始化scene和camera
+        var scene = new THREE.Scene();
+
+        var camera = new THREE.Camera();
+        scene.add(camera);
+
+        var arToolkitSource = new THREEx.ArToolkitSource({
+            sourceType: 'webcam'
+        });
+
+        arToolkitSource.init(function onReady(){
+            onResize();
+        });
+
+        // 处理 resize
+        window.addEventListener('resize', function(){
+            onResize();
+        })
+
+        function onResize(){
+            arToolkitSource.onResize();
+            arToolkitSource.copySizeTo(renderer.domElement);
+            if(arToolkitContext.arController !== null){
+                arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+            }
+        }
+        </script>
+    </body>
+</html>
