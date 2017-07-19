@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script>
+    AFRAME.registerComponent('scale-on-mouseenter', {
+        schema: {
+            to: {default: '2.5 2.5 2.5'}
+        },
+        init: function(){
+            var data = this.data;
+            this.el.addEventListener('mouseenter', function(){
+                this.setAttribute('scale', data.to);
+            });
+            this.el.addEventListener('mouseleave', function(){
+                this.setAttribute('scale', '1 1 1');
+            });
+        }
+    });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+        <a-assets>
+            <img id="boxTexture" src="../assets/images/woodbox.jpg" alt="">
+            <img id="skyTexture" src="../assets/images/bluesky.jpg" alt="">
+            <img id="floorTexture" src="../assets/images/floor.jpg" alt="">
+            <!--<audio src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay preload></audio>-->
+            <a-asset-item id="tableOBJ" src="../assets/models/table/table.obj"></a-assets-item>
+            <a-asset-item id="tableMTL" src="../assets/models/table/table.mtl"></a-assets-item>
+            <img id="tableTEX" src="../assets/models/table/table-texture.jpg" alt="">
+        </a-assets>
+        <a-box color="darkred" position="1 1 -3" scale="2 2 2" rotation="0 45 45">
+            <!--<a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000" repeat="indefinite"></a-animation>-->
+            <!--<a-animation attribute="rotation" to="45 45 45" dur="2000" repeat="indefinite"></a-animation>-->
+        </a-box>
+        <a-box woodbox src="#boxTexture" position="-4 1 -6"></a-box>
+        <a-sky color="#aaa"></a-sky>
+        <a-plane src="#floorTexture" rotation="-90 0 0" width="20" height="30" repeat="5 5"></a-plane>
+        <!-- 灯光 -->
+        <a-light type="ambient" color="#eee"></a-light>
+        <a-light type="point" intensity="2" position="5 20 -20"></a-light>
+
+        <!-- 引入模型 -->
+        <a-entity obj-model="obj: #tableOBJ;mtl: #tableMTL" position="0 0 -10"></a-entity>
+
+        <!-- 添加交互控制 -->
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+    </a-scene>
+    <script>
+        var boxEl = document.querySelector('a-box[woodbox]');
+        // boxEl.addEventListener('mouseenter', function(){
+        //     boxEl.setAttribute('scale', {x: 3, y: 3, z: 3});
+        // });
+    </script>
+  </body>
+</html>
