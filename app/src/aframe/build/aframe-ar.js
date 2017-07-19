@@ -2732,6 +2732,11 @@ AFRAME.registerComponent('arjsmarker', {
 		}else if( this.data.preset === 'kanji' ){
 			this.data.type = 'pattern'
 			this.data.patternUrl = THREEx.ArToolkitContext.baseURL+'examples/marker-training/examples/pattern-files/pattern-kanji.patt'
+			// console.log(THREEx.ArToolkitContext.baseURL+'examples/marker-training/examples/pattern-files/pattern-kanji.patt');
+		}else if( this.data.preset === 'letterA'){
+			// 后面新增的 匹配模式17-07-19
+			this.data.type = 'pattern'
+			this.data.patternUrl = THREEx.ArToolkitContext.baseURL+'examples/marker-training/examples/pattern-files/pattern-letterA.patt'
 		}else if( this.data.preset === 'area' ){
 			this.data.type = 'area'
 			// fall through
