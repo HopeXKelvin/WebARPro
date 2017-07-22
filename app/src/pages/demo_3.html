@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <script src="../assets/scripts/libs/aframe.min.js"></script>
+    <script src="../assets/scripts/libs/Tween.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.7.0/Tween.js"></script>-->
+    
+    <script>
+    // 一些全局的方法
+    var rotObjectMatrix;
+    function rotateAroundObjectAxis(object, axis, radians){
+      rotObjectMatrix = new THREE.Matrix4();
+      rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
+      
+      object.matrix.multiply(rotObjectMatrix);
+      object.rotation.setFromRotationMatrix(object.matrix);
+    }
+
+    var rotWorldMatrix;
+    function rotateAroundWorldAxis(object, axis, radians){
+      rotWorldMatrix = new THREE.Matrix4();
+      rotWorldMatrix.makeRotationAxis(axis.normalize, radians);
+
+      rotWorldMatrix.multiply(object.matrix);
+      object.matrix = rotWorldMatrix;
+      object.rotation.setFromRotationMatrix(object.matrix);
+    }
+
+    // 组件注册代码
+    // 创建follow组件
+    AFRAME.registerComponent('follow', {
+      schema: {
+        target: {
+          type: 'selector'
+        },
+        speed: {
+          type: 'number'
+        }
+      },
+      init: function(){
+        this.directionVec3 = new THREE.Vector3();
+      },
+      tick: function(time, timeDelta){
+        var directionVec3 = this.directionVec3;
+        var targetPosition = this.data.target.object3D.position;
+        var currentPosition = this.el.object3D.position;
+
+        directionVec3.copy(targetPosition).sub(currentPosition);
+
+        //  计算距离
+        var distance = directionVec3.length();
+
+        if(distance < 1){
+          return ;
+        }
+
+        var factor = this.data.speed / distance;
+        ['x', 'y', 'z'].forEach(function(axis){
+          directionVec3[axis] *= factor * (timeDelta / 1000);
+        });
+
+        this.el.setAttribute('position', {
+          x: currentPosition.x + directionVec3.x,
+          y: currentPosition.y + directionVec3.y,
+          z: currentPosition.z + directionVec3.z
+        });
+      }
+    });
+
+    // 创建旋转组件
+    AFRAME.registerComponent('rotatefollow', {
+      schema: {
+        // target: 'selector',
+        speed: {type: 'number',defalut: "2"}
+      },
+      init: function(){
+
+      },
+      tick: function(time, timeDelta){
+        // console.log('rotate!');
+        var object = this.el.object3D;
+        // console.log(object.position);
+        // debugger
+        var xAixs = new THREE.Vector3(0, 1, 2);
+        var normalizeX = xAixs.normalize();
+        // rotateAroundWorldAxis(object, xAixs, Math.PI / 180);
+        // object.rotateY(Math.PI / 180);
+        // object.setRotationFromAxisAngle(normalizeX, 0.5);
+        object.rotateOnAxis(normalizeX, 0.01);
+        object.position.x += 0.01*Math.PI;
+        
+        // object.position.x += Math.sqrt(1 - Math.pow(0.01)); 
+
+        // var factor = this.data.speed / 10;
+        // object.rotation.x += factor * (timeDelta / 1000);
+        // console.log(this.data.speed);
+        // console.log(factor);
+        // if(object.position.x > 2){
+        //   object.position.x = 0;
+        // }else{
+        //   object.position.x += 0.1;
+        // }
+      }
+    });
+
+    // 创建一个依赖于 tween.js 来实现的运动物体
+    AFRAME.registerComponent('circular', {
+      schema: {
+        'speed': {type: 'number', default: 1}
+      },
+      init: function(){
+        var object = this.el.object3D;
+        var position = {x: 0, y: 0};
+        var target = {x: 5, y: 5};
+        var backPos = {x: 5, y: 5};
+        var backTar = {x: 0, y: 5};
+        var tweenHead = new TWEEN.Tween(position).to(target, 2000);
+        tweenHead.onUpdate(function(){
+          object.position.x = position.x;
+          object.position.y = position.y;
+        });
+        tweenHead.delay(500);
+        tweenHead.easing(TWEEN.Easing.Linear.None);
+        // tweenHead.repeat(Infinity);
+
+        var tweenBack = new TWEEN.Tween(backPos).to(backTar, 2000);
+        tweenBack.onUpdate(function(){
+          object.position.x = backPos.x;
+          object.position.y = backPos.y;
+        });
+        tweenBack.delay(500);
+        tweenBack.easing(TWEEN.Easing.Circular.Out);
+        // tweenBack.repeat(Infinity);
+        // --------------
+        tweenHead.chain(tweenBack);
+        tweenBack.chain(tweenHead);
+
+        tweenHead.start();
+        // tweenBack.start();
+      },
+      tick: function(time, timeDelta){
+        TWEEN.update();
+      }
+    });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+        <!-- 原子结构模型 -->
+        <a-box position="0 1 -5" scale="1 1 1" color="darkred" wareframe="true" name="basicBall" rotatefollow="speed: 2">
+            <!--<a-box position="0 5 0" scale="0.5 0.5 0.5" color="pink">-->
+                <!--<a-animation></a-animation>-->
+                <!--<a-animation attribute="position" dur="10000" fill="forwards" to="-1 5 -2" repeat="indefinite"></a-animation>-->
+            <!--</a-box>-->
+        </a-box>
+
+        <a-sphere position="0 2 -5" scale="0.5 0.5 0.5" color="gray" name="followBall" circular="speed: 2"></a-sphere>
+
+        <!-- 平面 -->
+        <a-plane color="#aaa" rotation="-90 0 0" width="20" height="30" ></a-plane>
+    </a-scene>
+    <script>
+    var followBall = document.querySelector('a-sphere[name="followBall"]');
+    var basicBall = document.querySelector('a-sphere[name="basicBall"]');
+    // followBall.setAttribute('follow', {
+    //   target: basicBall,
+    //   speed: 10
+    // });
+    </script>
+  </body>
+</html>
