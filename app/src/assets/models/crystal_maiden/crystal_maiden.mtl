@@ -1,0 +1,80 @@
+# Blender MTL File: 'None'
+# Material Count: 6
+
+newmtl blinn1
+Ns 62.745098
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.035004 crystal_maiden\materials\base\__crystal_maiden_base_normal.tga
+map_Kd crystal_maiden\materials\base\__crystal_maiden_base_color.tga
+map_Ks crystal_maiden\materials\base\__crystal_maiden_base_specularMask.tga
+
+newmtl blinn2
+Ns 62.745098
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.035004 crystal_maiden\materials\crystal_maiden_back_normal.tga
+map_Kd crystal_maiden\materials\crystal_maiden_back_color.tga
+map_Ks crystal_maiden\materials\crystal_maiden_back_specularMask.tga
+
+newmtl blinn3
+Ns 62.745098
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.035004 crystal_maiden\materials\crystal_maiden_arms_normal.tga
+map_Kd crystal_maiden\materials\crystal_maiden_arms_color.tga
+map_Ks crystal_maiden\materials\crystal_maiden_arms_specularMask.tga
+
+newmtl blinn4
+Ns 62.745098
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.035004 crystal_maiden\materials\crystal_maiden_shoulder_normal.tga
+map_Kd crystal_maiden\materials\crystal_maiden_shoulder_color.tga
+map_Ks crystal_maiden\materials\crystal_maiden_shoulder_specularMask.tga
+
+newmtl blinn5
+Ns 62.745098
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.035004 crystal_maiden\materials\crystal_maiden_weapon_normal.tga
+map_Kd crystal_maiden\materials\crystal_maiden_weapon_color.tga
+map_Ks crystal_maiden\materials\crystal_maiden_weapon_specularMask.tga
+
+newmtl blinn6
+Ns 62.745098
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.035004 crystal_maiden\materials\crystal_maiden_head_normal.tga
+map_Kd crystal_maiden\materials\crystal_maiden_head_color.tga
+map_Ks crystal_maiden\materials\crystal_maiden_head_specularMask.tga

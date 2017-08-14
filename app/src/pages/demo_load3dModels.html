@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <script src="../assets/scripts/libs/aframe.js"></script>
+    <script src="../assets/scripts/build/aframe-ar.js"></script>
+    <script src="../assets/scripts/aframe-extras/aframe-extras.min.js"></script>
+    <script src="../assets/scripts/libs/Tween.js"></script>
+    <script>
+    AFRAME.registerComponent('collider-check', {
+        dependencies: ['raycaster'],
+        init: function () {
+            this.el.addEventListener('raycaster-intersected', function () {
+                console.log('Player hit something!');
+            });
+        }
+    });
+    </script>
+  </head>
+  <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+    <div class="button-area">
+        <button>旋转物体</button>
+        <button>拆解</button>
+    </div>
+
+      <a-scene stats embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+        <a-assets>
+            <a-asset-item id="markcup_obj" src="../assets/models/markcup/mark_cup.obj"></a-asset-item>
+            <a-asset-item id="markcup_mtl" src="../assets/models/markcup/mark_cup.mtl"></a-asset-item>
+            <a-asset-item id="sphere_obj" src="../assets/models/sphere/sphere.obj"></a-asset-item>
+            <a-asset-item id="sphere_mtl" src="../assets/models/sphere/sphere.mtl"></a-asset-item>
+
+            <a-asset-item id="water_obj" src="../assets/models/water.obj"></a-asset-item>
+            <a-asset-item id="water_mtl" src="../assets/models/water.mtl"></a-asset-item>
+
+            <a-asset-item id="chair_obj" src="../assets/models/chair/chair.obj"></a-asset-item>
+            <a-asset-item id="chair_mtl" src="../assets/models/chair/chair.mtl"></a-asset-item>
+            <a-asset-item id="h_element_obj" src="../assets/models/elements/h_element.obj"></a-asset-item>
+            <a-asset-item id="h_element_mtl" src="../assets/models/elements/h_element.mtl"></a-asset-item>
+            <a-asset-item id="o_element_obj" src="../assets/models/elements/o_element.obj"></a-asset-item>
+            <a-asset-item id="o_element_mtl" src="../assets/models/elements/o_element.mtl"></a-asset-item>
+            <a-asset-item id="multi-box" src="../assets/models/multi-box.obj"></a-asset-item>
+            
+        </a-assets>
+        <a-plane rotation='-90 0 0' position='0 0 -10' scale='10 10 10' color='gray'></a-plane>
+
+        <a-entity  position='0 0 -10' line="start: 0, 0, 10; end: 100 0 10; color: red" line__2="start: 0, 0, 10; end: 0 100 10; color: green" line__3="start: 0, 0, 10; end: 0 0 100; color: blue"></a-entity>
+
+        <a-marker preset='letterB'>
+                <a-entity material='opacity: 1;color: red' scale="0.01 0.01 0.01" position="0 0 0" obj-model="obj: #multi-box">
+                    <a-animation attribute="rotation"
+                                    dur="5000"
+                                    fill="forwards"
+                                    to="0 360 0"
+                                    repeat="indefinite"></a-animation>
+                </a-entity>
+        </a-marker>
+
+        <a-marker preset='letterC'>
+                <a-entity material='opacity: 1;color: red' scale="0.5 0.5 0.5" position="0 0 0" obj-model="obj: #h_element_obj;mtl: #h_element_mtl">
+                </a-entity>
+                <a-text color="black" rotation="-30 0 0" position="0 1.5 0" value="Hydrogen atom" align="center"></a-text>
+        </a-marker>
+
+        <a-marker preset='letterD'>
+                <a-entity material='opacity: 1;color: red' scale="0.5 0.5 0.5" position="0 0 0" obj-model="obj: #o_element_obj;mtl: #o_element_mtl">
+                    <a-animation attribute="rotation"
+                                    dur="5000"
+                                    fill="forwards"
+                                    to="0 360 0"
+                                    repeat="indefinite"></a-animation>
+                </a-entity>
+                <a-text color="black" rotation="-30 0 0" position="0 1.5 0" value="Oxygen atom" align="center"></a-text>
+        </a-marker>
+
+        <a-marker preset='letterF'>
+                <a-entity material='opacity: 1;color: red' scale="0.8 0.8 0.8" position="0 0 0" obj-model="obj: #water_obj;mtl: #water_mtl">
+                    <a-animation attribute="rotation"
+                                    dur="5000"
+                                    fill="forwards"
+                                    to="0 360 0"
+                                    repeat="indefinite"></a-animation>
+                </a-entity>
+        </a-marker>
+
+        <a-marker preset='letterA' >
+                <a-entity material='opacity: 0.5;' scale="0.4 0.4 0.4" position="0 0 0" obj-model="obj: #markcup_obj;mtl: #markcup_mtl">
+                    <a-entity material="shader: flat; color: red" position="0 1 0" rotation="0 0 0"></a-entity>
+                    <!--raycaster="objects: .collidable;showLine: true" line="color: red; opacity: 0.8"-->
+                </a-entity>
+        </a-marker>
+
+        <a-marker preset='kanji' >
+            <!--<a-entity scale="1 1 1" position="0 0 0" obj-model="obj: #sphere_obj;mtl: #sphere_mtl"></a-entity>-->
+            <!--<a-entity scale="0.5 0.5 0.5" animation-mixer="clip: idle" ply-model="src: url(../assets/models/sphere/sphere.ply);"></a-entity>-->
+            <!--<a-entity scale="0.5 0.5 0.5" animation-mixer="clip: idle" ply-model="src: url(../assets/models/sphere/sphere.ply);"></a-entity>-->
+            <a-entity class="collidable" json-model="src: url(../assets/models/eva/eva-animated.json);" animation-mixer></a-entity>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+      </a-scene>
+
+      <script>
+      window.onload = function(){
+        document.querySelectorAll('a-entity').forEach(function(item){
+            item.addEventListener('collide', function (evt) {
+                console.log('This A-Frame entity collided with another entity!');
+            });
+        });
+      };
+      </script>
+  </body>
+</html>
