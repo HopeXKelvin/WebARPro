@@ -72,13 +72,15 @@
         </a-marker>
 
         <a-marker preset='letterF'>
-                <a-entity material='opacity: 1;color: red' scale="0.8 0.8 0.8" position="0 0 0" obj-model="obj: #water_obj;mtl: #water_mtl">
+            <a-plane material='opacity: 0.5' color="#000" height="2" width="20" rotation="-90 0 0">
+                <a-entity material='opacity: 0.5;color: red' scale="0.8 0.8 0.8" position="0 0 0" obj-model="obj: #water_obj;mtl: #water_mtl">
                     <a-animation attribute="rotation"
                                     dur="5000"
                                     fill="forwards"
                                     to="0 360 0"
                                     repeat="indefinite"></a-animation>
                 </a-entity>
+            </a-plane>
         </a-marker>
 
         <a-marker preset='letterA' >
