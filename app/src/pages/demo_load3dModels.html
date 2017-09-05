@@ -31,8 +31,8 @@
             <a-asset-item id="water_obj" src="../assets/models/water.obj"></a-asset-item>
             <a-asset-item id="water_mtl" src="../assets/models/water.mtl"></a-asset-item>
 
-            <a-asset-item id="chair_obj" src="../assets/models/chair/chair.obj"></a-asset-item>
-            <a-asset-item id="chair_mtl" src="../assets/models/chair/chair.mtl"></a-asset-item>
+            <a-asset-item id="atom_obj" src="../assets/models/atom/he_atom_2.obj"></a-asset-item>
+            <a-asset-item id="atom_mtl" src="../assets/models/atom/he_atom_2.mtl"></a-asset-item>
             <a-asset-item id="h_element_obj" src="../assets/models/elements/h_element.obj"></a-asset-item>
             <a-asset-item id="h_element_mtl" src="../assets/models/elements/h_element.mtl"></a-asset-item>
             <a-asset-item id="o_element_obj" src="../assets/models/elements/o_element.obj"></a-asset-item>
@@ -82,7 +82,7 @@
         </a-marker>
 
         <a-marker preset='letterA' >
-                <a-entity material='opacity: 0.5;' scale="0.4 0.4 0.4" position="0 0 0" obj-model="obj: #markcup_obj;mtl: #markcup_mtl">
+                <a-entity material='opacity: 0.5;' scale="0.4 0.4 0.4" position="0 0 0" obj-model="obj: #atom_obj;mtl: #atom_mtl">
                     <a-entity material="shader: flat; color: red" position="0 1 0" rotation="0 0 0"></a-entity>
                     <!--raycaster="objects: .collidable;showLine: true" line="color: red; opacity: 0.8"-->
                 </a-entity>
@@ -92,7 +92,7 @@
             <!--<a-entity scale="1 1 1" position="0 0 0" obj-model="obj: #sphere_obj;mtl: #sphere_mtl"></a-entity>-->
             <!--<a-entity scale="0.5 0.5 0.5" animation-mixer="clip: idle" ply-model="src: url(../assets/models/sphere/sphere.ply);"></a-entity>-->
             <!--<a-entity scale="0.5 0.5 0.5" animation-mixer="clip: idle" ply-model="src: url(../assets/models/sphere/sphere.ply);"></a-entity>-->
-            <a-entity class="collidable" json-model="src: url(../assets/models/eva/eva-animated.json);" animation-mixer></a-entity>
+            <a-entity class="collidable" scale="0.4 0.4 0.4" json-model="src: url(../assets/models/atom/he_atom_2.json);"></a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
