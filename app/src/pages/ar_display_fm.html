@@ -8,8 +8,10 @@
       <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
           <!-- 模型资源 -->
         <a-assets>
-            <a-asset-item id="markcup_obj" src="../assets/models/markcup/mark_cup.obj"></a-asset-item>
-            <a-asset-item id="markcup_mtl" src="../assets/models/markcup/mark_cup.mtl"></a-asset-item>
+            <a-asset-item id="methane_obj" src="../assets/models/elements/methane.obj"></a-asset-item>
+            <a-asset-item id="methane_mtl" src="../assets/models/elements/methane.mtl"></a-asset-item>
+            <a-asset-item id="ethane_obj" src="../assets/models/elements/ethane.obj"></a-asset-item>
+            <a-asset-item id="ethane_mtl" src="../assets/models/elements/ethane.mtl"></a-asset-item>
             <a-asset-item id="sphere_obj" src="../assets/models/sphere/sphere.obj"></a-asset-item>
             <a-asset-item id="sphere_mtl" src="../assets/models/sphere/sphere.mtl"></a-asset-item>
             <a-asset-item id="water_obj" src="../assets/models/water.obj"></a-asset-item>
@@ -24,18 +26,19 @@
         </a-assets>
 
         <a-marker inspector test="color: red; size: 10" preset='letterD'>
-                <a-entity material='opacity: 1;color: red' scale="0.5 0.5 0.5" position="0 0 0" obj-model="obj: #o_element_obj;mtl: #o_element_mtl">
+                <a-entity material='opacity: 1;color: red' scale="0.5 0.5 0.5" position="0 0 0" obj-model="obj: #methane_obj;mtl: #methane_mtl">
                     <a-animation attribute="rotation"
                                     dur="5000"
                                     fill="forwards"
                                     to="0 360 0"
                                     repeat="indefinite"></a-animation>
                 </a-entity>
+                <a-plane material='opacity:0.5;color:lightgreen' ></a-plane>
                 <a-text color="black" rotation="-30 0 0" position="0 1.5 0" value="Oxygen atom" align="center"></a-text>
         </a-marker>
 
-        <!--<a-marker preset='letterB'>
-                <a-entity material='opacity: 1;color: red' scale="0.01 0.01 0.01" position="0 0 0" obj-model="obj: #multi-box">
+        <a-marker preset='letterB'>
+                <a-entity material='opacity: 1;color: red' scale="0.5 0.5 0.5" position="0 0 0" obj-model="obj: #ethane_obj;mtl: #ethane_mtl">
                     <a-animation attribute="rotation"
                                     dur="5000"
                                     fill="forwards"
@@ -44,7 +47,7 @@
                 </a-entity>
         </a-marker>
 
-        <a-marker preset='letterC'>
+        <!--<a-marker preset='letterC'>
                 <a-entity material='opacity: 1;color: red' scale="0.5 0.5 0.5" position="0 0 0" obj-model="obj: #h_element_obj;mtl: #h_element_mtl">
                 </a-entity>
                 <a-text color="black" rotation="-30 0 0" position="0 1.5 0" value="Hydrogen atom" align="center"></a-text>
